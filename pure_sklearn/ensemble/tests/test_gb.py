@@ -1,5 +1,6 @@
 import warnings
 import numpy as np
+from numpy.testing import assert_array_almost_equal
 
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.datasets import load_iris
@@ -34,5 +35,5 @@ def test_gradient_boosting():
                                 warnings.simplefilter("ignore")
                                 scores = getattr(clf, method)(X)
                             scores_ = getattr(clf_, method)(X_)
-                            assert np.allclose(scores.shape, shape(scores_))
+                            assert_array_almost_equal(scores.shape, shape(scores_))
                         assert np.allclose(scores, scores_, equal_nan=True)

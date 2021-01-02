@@ -37,7 +37,7 @@ class GradientBoostingClassifierPure:
             self.init_ = convert_estimator(estimator.init_)
         self.loss = estimator.loss
         self.learning_rate = estimator.learning_rate
-        self.n_features_ = estimator.n_features_
+        self.n_features_ = estimator.n_features_in_
         if self.loss == "deviance":
             self.loss_ = (
                 _MultinomialDeviancePure(len(self.classes_))

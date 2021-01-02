@@ -27,9 +27,10 @@ CLASSIFIERS = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Topic :: Scientific/Engineering",
 ]
 AUTHOR = "Ibotta Inc."
@@ -37,11 +38,11 @@ AUTHOR_EMAIL = "machine_learning@ibotta.com"
 LICENSE = "Apache 2.0"
 DOWNLOAD_URL = "https://pypi.org/project/pure-predict/#files"
 PROJECT_URLS = {"Source Code": "https://github.com/Ibotta/pure-predict"}
-MIN_PYTHON_VERSION = "3.6"
+MIN_PYTHON_VERSION = "3.8"
 
 tests_require = [
     "xgboost>=0.82",
-    "scikit-learn>=0.20",
+    "scikit-learn>=0.20,<0.24",
     "pandas",
     "numpy>=1.16.5",
     "fasttext<=0.9.1",

@@ -58,7 +58,7 @@ class GaussianNBPure(_BaseNBPure):
         check_version(estimator)
         self.class_prior_ = estimator.class_prior_.tolist()
         self.classes_ = estimator.classes_.tolist()
-        self.sigma_ = estimator.sigma_.tolist()
+        self.var_ = estimator.var_.tolist()
         self.theta_ = estimator.theta_.tolist()
         check_types(self)
 
@@ -68,12 +68,12 @@ class GaussianNBPure(_BaseNBPure):
         for i in range(len(self.classes_)):
             jointi = safe_log(self.class_prior_[i])
             n_ij = -0.5 * sum(
-                list(map(lambda x: safe_log(2.0 * pi * x), self.sigma_[i]))
+                list(map(lambda x: safe_log(2.0 * pi * x), self.var_[i]))
             )
             jll = [
                 list(
                     map(
-                        lambda b: ((a[b] - self.theta_[i][b]) ** 2) / self.sigma_[i][b],
+                        lambda b: ((a[b] - self.theta_[i][b]) ** 2) / self.var_[i][b],
                         range(len(a)),
                     )
                 )

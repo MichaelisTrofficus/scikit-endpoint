@@ -18,11 +18,11 @@ METHODS = [
 ]
 LOSSES = [
     "hinge",
-    "log",
+    "log_loss",
     "modified_huber",
     "squared_hinge",
     "perceptron",
-    "squared_loss",
+    "squared_error",
     "huber",
     "epsilon_insensitive",
     "squared_epsilon_insensitive",

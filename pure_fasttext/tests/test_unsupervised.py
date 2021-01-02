@@ -1,5 +1,5 @@
-import numpy as np
 import fasttext
+from numpy.testing import assert_array_almost_equal
 
 from pure_fasttext import FastText
 
@@ -19,7 +19,7 @@ def test_unsupervised_word():
         for word in sentence.split():
             wv = model.get_word_vector(word).tolist()
             wv_ = model_.get_word_vector(word)
-            assert np.allclose(wv, wv_)
+            assert_array_almost_equal(wv, wv_)
 
 
 def test_unsupervised_sentence():
@@ -28,4 +28,4 @@ def test_unsupervised_sentence():
     for sentence in SENTENCE:
         wv = model.get_sentence_vector(sentence).tolist()
         wv_ = model_.get_sentence_vector(sentence)
-        assert np.allclose(wv, wv_)
+        assert_array_almost_equal(wv, wv_)
