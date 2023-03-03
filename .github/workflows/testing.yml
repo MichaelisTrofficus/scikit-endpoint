@@ -1,0 +1,22 @@
+name: testing
+on:
+  push:
+    branches:
+      - "master"
+      - "develop"
+  pull_request:
+    branches:
+      - "master"
+      - "develop"
+jobs:
+  test-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Nox and Python Environments
+        uses: wntrblm/nox@2022.11.21
+        with:
+          python-versions: 3.8, 3.9, 3.10, 3.11
+      - name: Run Tests
+        run: nox --stop-on-first-error --error-on-missing-interpreters
