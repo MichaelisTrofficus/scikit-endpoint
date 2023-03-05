@@ -46,7 +46,7 @@ def _instantiate_class(module, name):
 
 
 def convert_estimator(est, min_version=None):
-    """ Convert scikit-learn estimator to its pure_sklearn counterpart """
+    """Convert scikit-learn estimator to its pure_sklearn counterpart"""
     est_name = est.__class__.__name__
     pure_est_name = MAPPING.get(est_name)
     if pure_est_name is None:

@@ -26,7 +26,6 @@ class DictVectorizerPure:
 
     def transform(self, X):
         dtype = self.dtype
-        feature_names = self.feature_names_
         vocab = self.vocabulary_
         X = [X] if isinstance(X, Mapping) else X
 

@@ -2,7 +2,7 @@
 Machine learning prediction in pure Python
 
 Various sklearn model classes with prediction
-methods re-written in pure python. All classes 
+methods re-written in pure python. All classes
 rely solely on pure python and can be unpickled
 in a python environment without any dependencies.
 """

@@ -1,9 +1,9 @@
 """
-Performance comparison between sklearn and pure_sklearn for a 
+Performance comparison between sklearn and pure_sklearn for a
 text pipeline. The pipeline unions a `TfidfVectorizer` and a `HashingVectorizer`
 followed by a `RandomForestClassifier` as the estimator.
-In the case of model object size, unpickle latency, 
-and prediction latency for a single record, we see 
+In the case of model object size, unpickle latency,
+and prediction latency for a single record, we see
 outperformance with pure_sklearn.
 
 We see substantial outperformance with pure_sklearn for
@@ -22,15 +22,13 @@ Predict 1 record pure-predict: 0.00426483154296875
 Difference: 0.04527621834233559
 """
 
-import numpy as np
-
-from sklearn.pipeline import Pipeline, FeatureUnion
-from sklearn.feature_extraction.text import HashingVectorizer, TfidfVectorizer
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import fetch_20newsgroups
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.feature_extraction.text import HashingVectorizer, TfidfVectorizer
+from sklearn.pipeline import Pipeline, FeatureUnion
 
-from pure_sklearn.utils import performance_comparison
 from pure_sklearn.map import convert_estimator
+from pure_sklearn.utils import performance_comparison
 
 N_ESTIMATORS = 100
 MAX_DEPTH = None

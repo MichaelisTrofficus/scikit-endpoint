@@ -2,11 +2,9 @@
 Estimator classes for xgboost
 """
 
-from math import exp
-
 from ..base import sfmax, expit
-from ..utils import check_types, check_array
 from ..tree import DecisionTreeRegressorPure
+from ..utils import check_types, check_array
 
 MIN_VERSION = "0.82"
 SUPPORTED_OBJ = ["binary:logistic", "multi:softprob"]
@@ -44,7 +42,7 @@ class XGBClassifierPure:
         check_types(self)
 
     def _build_estimators(self, estimator):
-        """ Convert booster to list of pure decision tree regressors """
+        """Convert booster to list of pure decision tree regressors"""
         if not hasattr(estimator.get_booster(), "trees_to_dataframe"):
             raise Exception(
                 "This xgboost estimator was likely fitted with version < {} "
@@ -68,7 +66,7 @@ class XGBClassifierPure:
         return estimators_
 
     def _predict(self, X):
-        """ Raw sums of estimator predictions for each class for multi-class """
+        """Raw sums of estimator predictions for each class for multi-class"""
         preds = []
         for cls_index in range(self.n_classes_):
             cls_sum = [0] * len(X)
@@ -79,7 +77,7 @@ class XGBClassifierPure:
         return preds
 
     def _predict_binary(self, X):
-        """ Raw sums of estimator predictions for each class for binary """
+        """Raw sums of estimator predictions for each class for binary"""
         preds = [0] * len(X)
         for estimator in self.estimators_:
             preds = list(map(lambda x, y: x + y, preds, estimator.predict(X)))

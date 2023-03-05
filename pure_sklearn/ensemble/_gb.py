@@ -51,7 +51,7 @@ class GradientBoostingClassifierPure:
         check_types(self)
 
     def _raw_predict_init(self, X):
-        """ Check input and compute raw predictions of the init estimator """
+        """Check input and compute raw predictions of the init estimator"""
         X = check_array(X)
         if shape(X)[1] != self.n_features_:
             raise ValueError(

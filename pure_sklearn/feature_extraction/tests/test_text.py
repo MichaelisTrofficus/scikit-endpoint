@@ -34,7 +34,7 @@ def test_tfidf_vectorizer():
 
 def test_hashing_vectorizer():
     for norm in ["l1", "l2", None]:
-        vec = HashingVectorizer(n_features=2 ** 8, norm=norm)
+        vec = HashingVectorizer(n_features=2**8, norm=norm)
         vec.fit(X)
         vec_ = convert_estimator(vec)
         X_t = vec.transform(X)

@@ -6,7 +6,7 @@ for a single record, we see outperformance with pure_sklearn.
 
 For the case of trees -- pure_sklearn generally does outpeform.
 Here we see a large feature space (400 features), full depth
-trees and 100 estimators. The size of the pure_sklearn model 
+trees and 100 estimators. The size of the pure_sklearn model
 object is half of that for sklearn -- and the prediction
 latency for a single record is 1/10th that of sklearn.
 

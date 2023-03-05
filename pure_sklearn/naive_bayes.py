@@ -1,5 +1,5 @@
 """
-Naive Bayes 
+Naive Bayes
 """
 
 from abc import abstractmethod
@@ -12,11 +12,11 @@ __all__ = ["GaussianNBPure", "MultinomialNBPure", "ComplementNBPure"]
 
 
 class _BaseNBPure:
-    """ Base class for naive Bayes classifiers """
+    """Base class for naive Bayes classifiers"""
 
     @abstractmethod
     def _joint_log_likelihood(self, X):
-        """ Compute the unnormalized posterior log probability of X """
+        """Compute the unnormalized posterior log probability of X"""
 
     def predict(self, X):
         """
@@ -63,13 +63,11 @@ class GaussianNBPure(_BaseNBPure):
         check_types(self)
 
     def _joint_log_likelihood(self, X):
-        """ Calculate the posterior log probability of the samples X """
+        """Calculate the posterior log probability of the samples X"""
         joint_log_likelihood = []
         for i in range(len(self.classes_)):
             jointi = safe_log(self.class_prior_[i])
-            n_ij = -0.5 * sum(
-                list(map(lambda x: safe_log(2.0 * pi * x), self.var_[i]))
-            )
+            n_ij = -0.5 * sum(list(map(lambda x: safe_log(2.0 * pi * x), self.var_[i])))
             jll = [
                 list(
                     map(
@@ -101,11 +99,11 @@ class MultinomialNBPure(_BaseNBPure):
         check_types(self)
 
     def _joint_log_likelihood(self, X):
-        """ Calculate the posterior log probability of the samples X """
+        """Calculate the posterior log probability of the samples X"""
         return [self._jll(a) for a in X]
 
     def _jll(self, x):
-        """ Calculate the joint log likelihood for one sample """
+        """Calculate the joint log likelihood for one sample"""
         dot_prod = dot(x, self.feature_log_prob_)
         return [
             (dot_prod[index] + self.class_log_prior_[index])
@@ -129,7 +127,7 @@ class ComplementNBPure(_BaseNBPure):
         check_types(self)
 
     def _joint_log_likelihood(self, X):
-        """ Calculate the class scores for the samples in X """
+        """Calculate the class scores for the samples in X"""
         jll = [dot(x, self.feature_log_prob_) for x in X]
         if len(self.classes_) == 1:
             jll = [[x[0] + self.class_log_prior_[0]] for x in jll]

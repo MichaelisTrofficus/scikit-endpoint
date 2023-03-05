@@ -19,7 +19,7 @@ def _encode_python(values, uniques=None, encode=False):
 
 
 def _encode(values, uniques=None, encode=False, check_unknown=True):
-    """ Helper function to factorize (find uniques) and encode values """
+    """Helper function to factorize (find uniques) and encode values"""
     try:
         res = _encode_python(values, uniques, encode)
     except TypeError:
@@ -28,7 +28,7 @@ def _encode(values, uniques=None, encode=False, check_unknown=True):
 
 
 def _encode_check_unknown(values, uniques, return_mask=False):
-    """ Helper function to check for unknowns in values to be encoded """
+    """Helper function to check for unknowns in values to be encoded"""
     uniques_set = set(uniques)
     diff = list(set(values) - uniques_set)
     if return_mask:

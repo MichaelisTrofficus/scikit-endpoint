@@ -1,5 +1,5 @@
 """
-Logistic Regression 
+Logistic Regression
 """
 
 from ._base import LinearClassifierMixinPure

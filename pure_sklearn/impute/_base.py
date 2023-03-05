@@ -101,7 +101,7 @@ class SimpleImputerPure:
         check_types(self)
 
     def _concatenate_indicator(self, X_imputed, X_indicator):
-        """ Concatenate indicator mask with the imputed data """
+        """Concatenate indicator mask with the imputed data"""
         if not self.add_indicator:
             return X_imputed
 
@@ -129,7 +129,7 @@ class SimpleImputerPure:
             return self.indicator_.transform(X)
 
     def transform(self, X):
-        """ Transform inpute X by imputing values """
+        """Transform inpute X by imputing values"""
         X = check_array(X)
         X_indicator = self._transform_indicator(X)
 

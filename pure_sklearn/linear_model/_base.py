@@ -9,7 +9,7 @@ from ..base import dot, expit, ravel
 
 
 class LinearClassifierMixinPure:
-    """ Mixin for linear classifiers """
+    """Mixin for linear classifiers"""
 
     def __init__(self, estimator):
         self.coef_ = estimator.coef_.tolist()
@@ -48,7 +48,7 @@ class LinearClassifierMixinPure:
         return ravel(scores) if shape(scores)[1] == 1 else scores
 
     def predict(self, X):
-        """ Predict class labels for samples in X """
+        """Predict class labels for samples in X"""
         scores = self.decision_function(X)
         if len(shape(scores)) == 1:
             indices = map(lambda x: int(x > 0), scores)

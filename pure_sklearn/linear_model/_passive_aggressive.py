@@ -1,5 +1,5 @@
 """
-Passive Aggressive 
+Passive Aggressive
 """
 
 from ..utils import check_types, check_version

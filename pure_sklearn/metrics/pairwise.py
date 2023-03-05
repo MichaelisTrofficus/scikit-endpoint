@@ -2,11 +2,9 @@
 Pairwise distance and similarity metrics
 """
 
-from math import sqrt
-
-from ..base import dot_2d, apply_2d, transpose
-from ..utils import shape, ndim, issparse
+from ..base import dot_2d, apply_2d
 from ..preprocessing import normalize_pure
+from ..utils import shape, ndim, issparse
 
 __all__ = ["cosine_similarity_pure", "cosine_distances_pure", "linear_kernel_pure"]
 
@@ -41,7 +39,7 @@ def _check_pairwise_arrays(X, Y):
 
 
 def cosine_similarity_pure(X, Y=None):
-    """ Compute cosine similarity between samples in X and Y """
+    """Compute cosine similarity between samples in X and Y"""
     X, Y = _check_pairwise_arrays(X, Y)
     X_normalized = normalize_pure(X, copy=True)
     if X is Y:
@@ -53,7 +51,7 @@ def cosine_similarity_pure(X, Y=None):
 
 
 def cosine_distances_pure(X, Y=None):
-    """ Compute cosine distance between samples in X and Y """
+    """Compute cosine distance between samples in X and Y"""
     S = cosine_similarity_pure(X, Y)
     func = lambda x: _clip(-x + 1, 0, 2)
     S = apply_2d(S, func)
@@ -63,6 +61,6 @@ def cosine_distances_pure(X, Y=None):
 
 
 def linear_kernel_pure(X, Y=None):
-    """ Compute the linear kernel between X and Y """
+    """Compute the linear kernel between X and Y"""
     X, Y = _check_pairwise_arrays(X, Y)
     return dot_2d(X, Y)

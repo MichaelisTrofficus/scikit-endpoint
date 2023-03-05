@@ -2,12 +2,11 @@
 Feature hashing
 
 Pure python implementation of murmur3 hash written here: https://github.com/wc-duck/pymmh3
-and submitted to the public domain. It has been replicated here in order to reduce 
-external dependencies. 
+and submitted to the public domain. It has been replicated here in order to reduce
+external dependencies.
 """
 
 import numbers
-
 from ..utils import check_types, sparse_list
 
 MAX_INT = 2147483647
@@ -24,8 +23,13 @@ def _xencode(x):
         return x.encode()
 
 
+def _iteritems(d):
+    """Like d.iteritems, but accepts any collections.Mapping."""
+    return d.iteritems() if hasattr(d, "iteritems") else d.items()
+
+
 def _hash(key, seed=0x0):
-    """ Implements 32bit murmur3 hash """
+    """Implements 32bit murmur3 hash"""
 
     key = bytearray(_xencode(key))
 
@@ -90,7 +94,7 @@ def _hash(key, seed=0x0):
 
 
 def _hashing_transform(raw_X, n_features, dtype, alternate_sign=1, seed=0):
-    """ Guts of FeatureHasher.transform """
+    """Guts of FeatureHasher.transform"""
     assert n_features > 0
     X = []
     for x in raw_X:
@@ -115,10 +119,10 @@ def _hashing_transform(raw_X, n_features, dtype, alternate_sign=1, seed=0):
 
 
 class _FeatureHasherPure:
-    """ Pure python implementation of `FeatureHasher` """
+    """Pure python implementation of `FeatureHasher`"""
 
     def __init__(
-        self, n_features=(2 ** 20), input_type="dict", dtype=float, alternate_sign=True
+        self, n_features=(2**20), input_type="dict", dtype=float, alternate_sign=True
     ):
         self._validate_params(n_features, input_type)
         self.dtype = dtype
@@ -143,7 +147,7 @@ class _FeatureHasherPure:
             )
 
     def transform(self, raw_X):
-        """ Transform a sequence of instances to a `sparse_list` """
+        """Transform a sequence of instances to a `sparse_list`"""
         raw_X = iter(raw_X)
         if self.input_type == "dict":
             raw_X = (_iteritems(d) for d in raw_X)

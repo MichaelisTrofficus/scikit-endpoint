@@ -2,6 +2,8 @@
 Feature encoders
 """
 
+from ._label import _encode, _encode_check_unknown
+from ..base import accumu, apply_2d
 from ..utils import (
     check_types,
     check_array,
@@ -10,8 +12,6 @@ from ..utils import (
     convert_type,
     check_version,
 )
-from ..base import accumu, apply_2d, ravel
-from ._label import _encode, _encode_check_unknown
 
 
 class _BaseEncoderPure:
@@ -33,7 +33,7 @@ class _BaseEncoderPure:
         check_types(self)
 
     def _check_X(self, X):
-        """ Perform custom check_array """
+        """Perform custom check_array"""
         X = check_array(X)
         n_samples, n_features = shape(X)
         X_columns = []
@@ -107,7 +107,7 @@ class OrdinalEncoderPure(_BaseEncoderPure):
     """
 
     def transform(self, X):
-        """ Transform X to ordinal codes """
+        """Transform X to ordinal codes"""
         X_int, _ = self._transform(X)
         return apply_2d(X_int, self.dtype)
 
@@ -121,7 +121,7 @@ class OneHotEncoderPure(_BaseEncoderPure):
     """
 
     def transform(self, X):
-        """ Transform X using one-hot encoding """
+        """Transform X using one-hot encoding"""
         X_int, X_mask = self._transform(X, handle_unknown=self.handle_unknown)
 
         n_samples, n_features = shape(X_int)

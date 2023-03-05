@@ -11,6 +11,7 @@ METHODS = ["predict", "predict_proba", "predict_log_proba", "_joint_log_likeliho
 
 def test_import():
     from pure_sklearn import naive_bayes  # noqa F403
+
     assert True
 
 
