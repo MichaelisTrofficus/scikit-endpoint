@@ -1,5 +1,5 @@
 """
-The :mod:`pure_sklearn.metrics` module includes pairwise 
+The :mod:`pure_sklearn.metrics` module includes pairwise
 metrics and distance computations.
 """
 

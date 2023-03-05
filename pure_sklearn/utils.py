@@ -41,7 +41,7 @@ def check_types(obj, containers=CONTAINERS, types=TYPES):
 
 
 def check_version(estimator, min_version=None):
-    """ Checks the version of the scikit-learn estimator """
+    """Checks the version of the scikit-learn estimator"""
     warning_str = (
         "Estimators fitted with sklearn version < {} are not guaranteed to work".format(
             MIN_VERSION
@@ -49,7 +49,7 @@ def check_version(estimator, min_version=None):
     )
     try:
         version_ = estimator.__getstate__()["_sklearn_version"]
-    except:
+    except:  # noqa E722
         warn(warning_str)
         return
     if (min_version is not None) and (
@@ -65,7 +65,7 @@ def check_version(estimator, min_version=None):
 
 
 def convert_type(dtype):
-    """ Converts a datatype to its pure python equivalent """
+    """Converts a datatype to its pure python equivalent"""
     val = dtype(0)
     if hasattr(val, "item"):
         return type(val.item())
@@ -114,7 +114,7 @@ def shape(X):
 
 
 def ndim(X):
-    """ Computes the dimension of input list """
+    """Computes the dimension of input list"""
     if isinstance(X[0], (list, dict)):
         return 2
     else:
@@ -122,17 +122,17 @@ def ndim(X):
 
 
 def tosparse(A):
-    """ Converts input dense list to a `sparse_list` """
+    """Converts input dense list to a `sparse_list`"""
     return sparse_list(A)
 
 
 def todense(A):
-    """ Converts input `sparse_list` to a dense list """
+    """Converts input `sparse_list` to a dense list"""
     return A.todense()
 
 
 def issparse(A):
-    """ Checks if input list is a `sparse_list` """
+    """Checks if input list is a `sparse_list`"""
     return isinstance(A, sparse_list)
 
 
@@ -176,7 +176,7 @@ class sparse_list(list):
                 )
 
     def todense(self):
-        """ Converts `sparse_list` instance to a dense list """
+        """Converts `sparse_list` instance to a dense list"""
         A_dense = []
         zero_val = self.dtype(0)
         for row in self:
@@ -194,14 +194,14 @@ def performance_comparison(sklearn_estimator, pure_sklearn_estimator, X):
         pure_sklearn_estimator (object)
         X (numpy ndarray): features for prediction
     """
-    ### -- profile pickled object size: sklearn vs pure-predict
+    # -- profile pickled object size: sklearn vs pure-predict
     pickled = pickle.dumps(sklearn_estimator)
     pickled_ = pickle.dumps(pure_sklearn_estimator)
     print("Pickle Size sklearn: {}".format(len(pickled)))
     print("Pickle Size pure-predict: {}".format(len(pickled_)))
     print("Difference: {}".format(len(pickled_) / float(len(pickled))))
 
-    ### -- profile unpickle time: sklearn vs pure-predict
+    # -- profile unpickle time: sklearn vs pure-predict
     start = time.time()
     _ = pickle.loads(pickled)
     pickle_t = time.time() - start
@@ -212,7 +212,7 @@ def performance_comparison(sklearn_estimator, pure_sklearn_estimator, X):
     print("Unpickle time pure-predict: {}".format(pickle_t_))
     print("Difference: {}".format(pickle_t_ / pickle_t))
 
-    ### -- profile single record predict latency: sklearn vs pure-predict
+    # -- profile single record predict latency: sklearn vs pure-predict
     X_pred = X[:1]
     X_pred_ = X_pred if isinstance(X_pred, list) else X_pred.tolist()
     start = time.time()

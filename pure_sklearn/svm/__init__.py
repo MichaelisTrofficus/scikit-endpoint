@@ -1,5 +1,5 @@
 """
-The :mod:`pure_sklearn.svm` module implements a variety of 
+The :mod:`pure_sklearn.svm` module implements a variety of
 support vector machines
 """
 

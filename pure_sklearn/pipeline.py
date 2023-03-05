@@ -22,7 +22,7 @@ __all__ = ["FeatureUnionPure", "PipelinePure"]
 
 
 class _IffHasAttrDescriptor:
-    """ Implements a conditional property using the descriptor protocol """
+    """Implements a conditional property using the descriptor protocol"""
 
     def __init__(self, fn, delegate_names, attribute_name):
         self.fn = fn
@@ -97,12 +97,12 @@ class PipelinePure:
                 yield idx, name, trans
 
     def __len__(self):
-        """ Returns the length of the Pipeline """
+        """Returns the length of the Pipeline"""
         return len(self.steps)
 
     @_if_delegate_has_method(delegate="_final_estimator")
     def predict(self, X, **predict_params):
-        """ Apply transforms to the data, and predict with the final estimator """
+        """Apply transforms to the data, and predict with the final estimator"""
         Xt = X
         for _, name, transform in self._iter(with_final=False):
             Xt = transform.transform(Xt)
@@ -110,7 +110,7 @@ class PipelinePure:
 
     @_if_delegate_has_method(delegate="_final_estimator")
     def predict_proba(self, X):
-        """ Apply transforms, and predict_proba of the final estimator """
+        """Apply transforms, and predict_proba of the final estimator"""
         Xt = X
         for _, name, transform in self._iter(with_final=False):
             Xt = transform.transform(Xt)
@@ -118,7 +118,7 @@ class PipelinePure:
 
     @_if_delegate_has_method(delegate="_final_estimator")
     def predict_log_proba(self, X):
-        """ Apply transforms, and predict_log_proba of the final estimator """
+        """Apply transforms, and predict_log_proba of the final estimator"""
         Xt = X
         for _, name, transform in self._iter(with_final=False):
             Xt = transform.transform(Xt)

@@ -18,7 +18,7 @@ def _clip(a, a_min, a_max):
 
 
 class _MultinomialDeviancePure:
-    """ Multinomial deviance loss function for multi-class classification """
+    """Multinomial deviance loss function for multi-class classification"""
 
     is_multi_class = True
 
@@ -53,7 +53,7 @@ class _MultinomialDeviancePure:
 
 
 class _BinomialDeviancePure:
-    """ Binomial deviance loss function for binary classification """
+    """Binomial deviance loss function for binary classification"""
 
     def __init__(self, n_classes):
         if n_classes != 2:
@@ -87,7 +87,7 @@ class _BinomialDeviancePure:
 
 
 class _ExponentialLossPure:
-    """ Exponential loss function for binary classification """
+    """Exponential loss function for binary classification"""
 
     def __init__(self, n_classes):
         if n_classes != 2:

@@ -5,7 +5,7 @@ Base functions for matrix calculations
 from math import exp, log
 from operator import mul
 
-from .utils import shape, check_array, sparse_list, todense, issparse
+from .utils import shape, sparse_list, issparse
 
 
 def dot(A, B):
@@ -34,9 +34,8 @@ def dot_2d(A, B):
 
 
 def matmult_same_dim(A, B):
-    """ Multiply two matrices of the same dimension """
+    """Multiply two matrices of the same dimension"""
     shape_A = shape(A)
-    shape_B = shape(B)
     issparse_A = issparse(A)
     issparse_B = issparse(B)
     if shape_A != shape(B):
@@ -60,19 +59,19 @@ def matmult_same_dim(A, B):
 
 
 def transpose(A):
-    """ Transpose 2-D list """
+    """Transpose 2-D list"""
     if issparse(A):
         raise ValueError("Sparse input not supported.")
     return list(map(list, [*zip(*A)]))
 
 
 def expit(x):
-    """ Expit function for scaler input """
+    """Expit function for scaler input"""
     return 1.0 / (1.0 + safe_exp(-x))
 
 
 def sfmax(arr):
-    """ Softmax function for 1-D list or a single sparse_list element """
+    """Softmax function for 1-D list or a single sparse_list element"""
     if isinstance(arr, dict):
         expons = {k: safe_exp(v) for k, v in arr.items()}
         denom = sum(expons.values())
@@ -84,7 +83,7 @@ def sfmax(arr):
 
 
 def safe_log(x):
-    """ Equivalent to numpy log with scalar input """
+    """Equivalent to numpy log with scalar input"""
     if x == 0:
         return -float("Inf")
     elif x < 0:
@@ -94,7 +93,7 @@ def safe_log(x):
 
 
 def safe_exp(x):
-    """ Equivalent to numpy exp with scalar input """
+    """Equivalent to numpy exp with scalar input"""
     try:
         return exp(x)
     except OverflowError:
@@ -102,7 +101,7 @@ def safe_exp(x):
 
 
 def operate_2d(A, B, func):
-    """ Apply elementwise function to 2-D lists """
+    """Apply elementwise function to 2-D lists"""
     if issparse(A) or issparse(B):
         raise ValueError("Sparse input not supported.")
     if shape(A) != shape(B):
@@ -111,14 +110,14 @@ def operate_2d(A, B, func):
 
 
 def apply_2d(A, func):
-    """ Apply function to every element of 2-D list """
+    """Apply function to every element of 2-D list"""
     if issparse(A):
         raise ValueError("Sparse input not supported.")
     return [list(map(func, a)) for a in A]
 
 
 def apply_2d_sparse(A, func):
-    """ Apply function to every non-zero element of sparse_list """
+    """Apply function to every non-zero element of sparse_list"""
     if not issparse(A):
         raise ValueError("Dense input not supported.")
     A_ = [{k: func(v) for k, v in a.items()} for a in A]
@@ -144,14 +143,14 @@ def apply_axis_2d(A, func, axis=1):
 
 
 def ravel(A):
-    """ Equivalent of numpy ravel on 2-D list """
+    """Equivalent of numpy ravel on 2-D list"""
     if issparse(A):
         raise ValueError("Sparse input not supported.")
     return list(transpose(A)[0])
 
 
 def slice_column(A, idx):
-    """ Slice columns from 2-D list A. Handles sparse data """
+    """Slice columns from 2-D list A. Handles sparse data"""
     if isinstance(idx, int):
         if issparse(A):
             return [a.get(idx, A.dtype(0)) for a in A]
@@ -166,7 +165,7 @@ def slice_column(A, idx):
 
 
 def accumu(lis):
-    """ Cumulative sum of list """
+    """Cumulative sum of list"""
     total = 0
     for x in lis:
         total += x

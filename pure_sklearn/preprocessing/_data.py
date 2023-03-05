@@ -10,7 +10,7 @@ from ..base import transpose, apply_2d, apply_axis_2d, matmult_same_dim
 
 
 def _handle_zeros_in_scale(scale, copy=True):
-    """ Makes sure that whenever scale is zero, we handle it correctly """
+    """Makes sure that whenever scale is zero, we handle it correctly"""
     if isinstance(scale, (int, float)):
         if scale == 0.0:
             scale = 1.0
@@ -22,7 +22,7 @@ def _handle_zeros_in_scale(scale, copy=True):
 
 
 def _row_norms(X):
-    """ Row-wise (squared) Euclidean norm of X """
+    """Row-wise (squared) Euclidean norm of X"""
     X_X = matmult_same_dim(X, X)
     if issparse(X):
         norms = [sum(x.values()) for x in X_X]
@@ -32,7 +32,7 @@ def _row_norms(X):
 
 
 def normalize_pure(X, norm="l2", axis=1, copy=True, return_norm=False):
-    """ Scale input vectors individually to unit norm """
+    """Scale input vectors individually to unit norm"""
     # check input compatibility
     if (axis == 0) and issparse(X):
         raise ValueError("Axis 0 is not supported for sparse data")
@@ -130,7 +130,7 @@ class StandardScalerPure:
         check_types(self)
 
     def transform(self, X, copy=None):
-        """ Perform standardization by centering and scaling """
+        """Perform standardization by centering and scaling"""
         X = check_array(X, handle_sparse="allow")
 
         if issparse(X):
@@ -174,7 +174,7 @@ class MinMaxScalerPure:
         check_types(self)
 
     def transform(self, X):
-        """ Scale features of X according to feature_range """
+        """Scale features of X according to feature_range"""
         if issparse(X):
             raise TypeError(
                 "MinMaxScalerPure does not support sparse input. "
@@ -209,7 +209,7 @@ class MaxAbsScalerPure:
         check_types(self)
 
     def transform(self, X):
-        """ Scale the data """
+        """Scale the data"""
         X = check_array(X, handle_sparse="allow")
         if issparse(X):
             X_ = [{k: (v / self.scale_[k]) for k, v in x.items()} for x in X]

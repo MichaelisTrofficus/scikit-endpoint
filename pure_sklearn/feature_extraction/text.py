@@ -5,13 +5,14 @@ build feature vectors from text documents.
 
 import re
 import unicodedata
-
 from functools import partial
-from collections import defaultdict
 from math import isnan
+import warnings
 
+from ._hash import _FeatureHasherPure
+from ..map import convert_estimator
+from ..preprocessing import normalize_pure
 from ..utils import (
-    check_types,
     convert_type,
     sparse_list,
     shape,
@@ -19,9 +20,8 @@ from ..utils import (
     check_types,
     check_version,
 )
-from ..map import convert_estimator
-from ..preprocessing import normalize_pure
-from ._hash import _FeatureHasherPure
+from ..base import safe_log
+
 
 __all__ = [
     "CountVectorizerPure",
@@ -75,7 +75,7 @@ def _analyze(
 
 
 def strip_accents_unicode(s):
-    """ Transform accentuated unicode symbols into their simple counterpart """
+    """Transform accentuated unicode symbols into their simple counterpart"""
     try:
         # If `s` is ASCII-compatible, then it does not contain any accented
         # characters and we can avoid an expensive list comprehension
@@ -87,13 +87,13 @@ def strip_accents_unicode(s):
 
 
 def strip_accents_ascii(s):
-    """ Transform accentuated unicode symbols into ascii or nothing """
+    """Transform accentuated unicode symbols into ascii or nothing"""
     nkfd_form = unicodedata.normalize("NFKD", s)
     return nkfd_form.encode("ASCII", "ignore").decode("ASCII")
 
 
 def strip_tags(s):
-    """ Basic regexp based HTML / XML tag stripper function """
+    """Basic regexp based HTML / XML tag stripper function"""
     return re.compile(r"<([^>]+)>", flags=re.UNICODE).sub(" ", s)
 
 
@@ -111,12 +111,12 @@ def _check_stop_list(stop):
 
 
 class _VectorizerMixinPure:
-    """ Provides common code for text vectorizers (tokenization logic) """
+    """Provides common code for text vectorizers (tokenization logic)"""
 
     _white_spaces = re.compile(r"\s\s+")
 
     def decode(self, doc):
-        """ Decode the input into a string of unicode symbols """
+        """Decode the input into a string of unicode symbols"""
         if self.input == "filename":
             with open(doc, "rb") as fh:
                 doc = fh.read()
@@ -135,7 +135,7 @@ class _VectorizerMixinPure:
         return doc
 
     def _word_ngrams(self, tokens, stop_words=None):
-        """ Turn tokens into a sequence of n-grams after stop words filtering """
+        """Turn tokens into a sequence of n-grams after stop words filtering"""
         # handle stop words
         if stop_words is not None:
             tokens = [w for w in tokens if w not in stop_words]
@@ -165,7 +165,7 @@ class _VectorizerMixinPure:
         return tokens
 
     def _char_ngrams(self, text_document):
-        """ Tokenize text_document into a sequence of character n-grams """
+        """Tokenize text_document into a sequence of character n-grams"""
         # normalize white spaces
         text_document = self._white_spaces.sub(" ", text_document)
 
@@ -188,7 +188,7 @@ class _VectorizerMixinPure:
         return ngrams
 
     def _char_wb_ngrams(self, text_document):
-        """ Whitespace sensitive char-n-gram tokenization """
+        """Whitespace sensitive char-n-gram tokenization"""
         # normalize white spaces
         text_document = self._white_spaces.sub(" ", text_document)
 
@@ -212,7 +212,7 @@ class _VectorizerMixinPure:
         return ngrams
 
     def build_preprocessor(self):
-        """ Return a function to preprocess the text before tokenization """
+        """Return a function to preprocess the text before tokenization"""
         if self.preprocessor is not None:
             return self.preprocessor
 
@@ -233,18 +233,18 @@ class _VectorizerMixinPure:
         return partial(_preprocess, accent_function=strip_accents, lower=self.lowercase)
 
     def build_tokenizer(self):
-        """ Return a function that splits a string into a sequence of tokens """
+        """Return a function that splits a string into a sequence of tokens"""
         if self.tokenizer is not None:
             return self.tokenizer
         token_pattern = re.compile(self.token_pattern)
         return token_pattern.findall
 
     def get_stop_words(self):
-        """ Build or fetch the effective stop words list """
+        """Build or fetch the effective stop words list"""
         return _check_stop_list(self.stop_words)
 
     def _check_stop_words_consistency(self, stop_words, preprocess, tokenize):
-        """ Check if stop words are consistent """
+        """Check if stop words are consistent"""
         if id(self.stop_words) == getattr(self, "_stop_words_id", None):
             # Stop words are were previously validated
             return None
@@ -295,7 +295,6 @@ class _VectorizerMixinPure:
             )
 
         elif self.analyzer == "char_wb":
-
             return partial(
                 _analyze,
                 ngrams=self._char_wb_ngrams,
@@ -349,7 +348,7 @@ class CountVectorizerPure(_VectorizerMixinPure):
         check_types(self)
 
     def _count_vocab(self, raw_documents):
-        """ Create sparse feature matrix, and vocabulary where fixed_vocab=False """
+        """Create sparse feature matrix, and vocabulary where fixed_vocab=False"""
         vocabulary = self.vocabulary_
         analyze = self.build_analyzer()
         data = []
@@ -369,7 +368,7 @@ class CountVectorizerPure(_VectorizerMixinPure):
         return vocabulary, X
 
     def transform(self, raw_documents):
-        """ Transform documents to document-term matrix """
+        """Transform documents to document-term matrix"""
         if isinstance(raw_documents, str):
             raise ValueError(
                 "Iterable over raw text documents expected, string object received."
@@ -431,7 +430,7 @@ class TfidfTransformerPure:
                 raise ValueError(
                     "Input has n_features=%d while the model"
                     " has been trained with n_features=%d"
-                    % (n_features, expected_n_features)
+                    % (n_features, self.expected_n_features_)
                 )
             for index in range(len(X)):
                 for k, v in X[index].items():
@@ -472,7 +471,7 @@ class HashingVectorizerPure(_VectorizerMixinPure):
         check_types(self)
 
     def transform(self, X):
-        """ Transform a sequence of documents to a document-term matrix """
+        """Transform a sequence of documents to a document-term matrix"""
         if isinstance(X, str):
             raise ValueError(
                 "Iterable over raw text documents expected, string object received."

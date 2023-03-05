@@ -11,7 +11,7 @@ from ..utils import check_array, check_types, check_version
 
 
 class _DecisionTreeBase:
-    """ Decision tree base class """
+    """Decision tree base class"""
 
     def __init__(self, estimator):
         if isinstance(estimator, dict):

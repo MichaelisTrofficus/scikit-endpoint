@@ -1,12 +1,12 @@
 """
-Bagging classifier 
+Bagging classifier
 """
 
 from operator import add
 
-from ..map import MAPPING, convert_estimator
 from ..base import safe_log, operate_2d, apply_2d
-from ..utils import shape, check_types, check_version
+from ..map import convert_estimator
+from ..utils import check_types, check_version
 
 
 def _feat_slice(X, feats):
@@ -17,7 +17,7 @@ def _feat_slice(X, feats):
 
 
 class _BaseBaggingPure:
-    """ Base bagging classifier """
+    """Base bagging classifier"""
 
     def __init__(self, estimator):
         check_version(estimator)
