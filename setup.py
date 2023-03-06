@@ -18,9 +18,9 @@ def parse_description(description):
     )
 
 
-DISTNAME = "pure-predict"
-VERSION = "0.0.4"
-DESCRIPTION = "Machine learning prediction in pure Python"
+DISTNAME = "pure-endpoint"
+VERSION = "0.0.1"
+DESCRIPTION = "Fast model predictions for ML Endpoints"
 with open("README.rst") as f:
     LONG_DESCRIPTION = parse_description(f.read())
 CLASSIFIERS = [
@@ -33,20 +33,20 @@ CLASSIFIERS = [
     "Programming Language :: Python :: 3.11",
     "Topic :: Scientific/Engineering",
 ]
-AUTHOR = "Ibotta Inc."
-AUTHOR_EMAIL = "machine_learning@ibotta.com"
+AUTHOR = "Miguel Otero Pedrido"
+AUTHOR_EMAIL = "miguel.otero.pedrido.1993@gmail.com"
 LICENSE = "Apache 2.0"
-DOWNLOAD_URL = "https://pypi.org/project/pure-predict/#files"
-PROJECT_URLS = {"Source Code": "https://github.com/Ibotta/pure-predict"}
-MIN_PYTHON_VERSION = "3.8"
+PROJECT_URLS = {"Source Code": "https://github.com/MichaelisTrofficus/pure-endpoint"}
+MIN_PYTHON_VERSION = "3.9"
 
 tests_require = [
-    "xgboost>=0.82",
-    "scikit-learn>=0.20,<0.24",
-    "pandas",
-    "numpy>=1.16.5",
-    "fasttext<=0.9.1",
+    "xgboost>=1.7.4",
+    "scikit-learn>=1.2.1",
+    "pandas>=1.5.3",
+    "numpy>=1.24.2",
     "pytest",
+    "coverage",
+    "nox",
 ]
 
 setup(
@@ -58,7 +58,6 @@ setup(
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
     license=LICENSE,
-    download_url=DOWNLOAD_URL,
     project_urls=PROJECT_URLS,
     packages=find_packages(),
     python_requires=">={0}".format(MIN_PYTHON_VERSION),
