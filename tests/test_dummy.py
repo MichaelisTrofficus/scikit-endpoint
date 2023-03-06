@@ -3,8 +3,8 @@ import numpy as np
 from sklearn.dummy import DummyClassifier
 from sklearn.datasets import load_iris
 
-from pure_sklearn.map import convert_estimator
-from pure_sklearn.utils import shape
+from scikit_endpoint.map import convert_estimator
+from scikit_endpoint.utils import shape
 
 METHODS = [
     "predict",
@@ -14,7 +14,7 @@ METHODS = [
 
 
 def test_import():
-    from pure_sklearn import dummy
+    from scikit_endpoint import dummy
 
     assert True
 

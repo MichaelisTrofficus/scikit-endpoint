@@ -6,12 +6,12 @@ from sklearn.preprocessing import StandardScaler, MaxAbsScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.datasets import load_iris
 
-from pure_sklearn.map import convert_estimator
-from pure_sklearn.utils import tosparse, shape
+from scikit_endpoint.map import convert_estimator
+from scikit_endpoint.utils import tosparse, shape
 
 
 def test_import():
-    from pure_sklearn import pipeline
+    from scikit_endpoint import pipeline
 
     assert True
 

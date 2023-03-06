@@ -1,14 +1,14 @@
 import numpy as np
 
-from pure_sklearn.utils import shape
-from pure_sklearn.utils import issparse, tosparse, todense, check_array, sparse_list
+from scikit_endpoint.utils import shape
+from scikit_endpoint.utils import issparse, tosparse, todense, check_array, sparse_list
 
 A = [1, 2]
 B = [[1, 2], [3, 4]]
 
 
 def test_import():
-    from pure_sklearn import utils
+    from scikit_endpoint import utils
 
     assert True
 
