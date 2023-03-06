@@ -1,8 +1,8 @@
 """
 Performance comparison between sklearn `LogisticRegression`
-and pure_sklearn `LogisticRegressionPure`. In the case of
+and scikit_endpoint `LogisticRegressionPure`. In the case of
 model object size, unpickle latency, and prediction latency
-for a single record, we see outperformance with pure_sklearn.
+for a single record, we see outperformance with scikit_endpoint.
 
 This is meant to illustrate that the pure python implementation
 can outperform sklearn. Note that this will not always be the case,
@@ -27,8 +27,8 @@ import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.datasets import load_iris
 
-from pure_sklearn.utils import performance_comparison
-from pure_sklearn.map import convert_estimator
+from scikit_endpoint.utils import performance_comparison
+from scikit_endpoint.map import convert_estimator
 
 SOLVER = "lbfgs"
 MAX_ITER = 1000

@@ -1,12 +1,12 @@
 """
-Performance comparison between sklearn and pure_sklearn for a
+Performance comparison between sklearn and scikit_endpoint for a
 text pipeline. The pipeline unions a `TfidfVectorizer` and a `HashingVectorizer`
 followed by a `RandomForestClassifier` as the estimator.
 In the case of model object size, unpickle latency,
 and prediction latency for a single record, we see
-outperformance with pure_sklearn.
+outperformance with scikit_endpoint.
 
-We see substantial outperformance with pure_sklearn for
+We see substantial outperformance with scikit_endpoint for
 single record prediction.
 
 Example Run
@@ -27,8 +27,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import HashingVectorizer, TfidfVectorizer
 from sklearn.pipeline import Pipeline, FeatureUnion
 
-from pure_sklearn.map import convert_estimator
-from pure_sklearn.utils import performance_comparison
+from scikit_endpoint.map import convert_estimator
+from scikit_endpoint.utils import performance_comparison
 
 N_ESTIMATORS = 100
 MAX_DEPTH = None

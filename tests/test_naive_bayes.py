@@ -3,14 +3,14 @@ import numpy as np
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, ComplementNB
 from sklearn.datasets import load_iris
 
-from pure_sklearn.map import convert_estimator
-from pure_sklearn.utils import shape
+from scikit_endpoint.map import convert_estimator
+from scikit_endpoint.utils import shape
 
 METHODS = ["predict", "predict_proba", "predict_log_proba", "_joint_log_likelihood"]
 
 
 def test_import():
-    from pure_sklearn import naive_bayes  # noqa F403
+    from scikit_endpoint import naive_bayes  # noqa F403
 
     assert True
 

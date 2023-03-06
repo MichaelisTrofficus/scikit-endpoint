@@ -1,13 +1,11 @@
 import warnings
-import numpy as np
-
 from operator import add
 
-from pure_sklearn.utils import shape, tosparse
-from pure_sklearn.base import (
+import numpy as np
+
+from scikit_endpoint.base import (
     transpose,
     dot,
-    safe_log,
     safe_exp,
     dot_2d,
     matmult_same_dim,
@@ -18,7 +16,8 @@ from pure_sklearn.base import (
     apply_axis_2d,
     slice_column,
 )
-from pure_sklearn.utils import tosparse
+from scikit_endpoint.utils import shape
+from scikit_endpoint.utils import tosparse
 
 A = [1, 2]
 B = [[1, 2], [3, 4]]
@@ -26,8 +25,6 @@ LOG_LIST = [-float("Inf"), -1e30, -10, 0, 10, 1e30, 1e500, float("Inf"), float("
 
 
 def test_import():
-    from pure_sklearn import base
-
     assert True
 
 

@@ -1,12 +1,12 @@
 """
 Performance comparison between sklearn `RandomForestClassifier`
-and pure_sklearn `RandomForestClassifierPure`. In the case of
+and scikit_endpoint `RandomForestClassifierPure`. In the case of
 model object size, unpickle latency, and prediction latency
-for a single record, we see outperformance with pure_sklearn.
+for a single record, we see outperformance with scikit_endpoint.
 
-For the case of trees -- pure_sklearn generally does outpeform.
+For the case of trees -- scikit_endpoint generally does outpeform.
 Here we see a large feature space (400 features), full depth
-trees and 100 estimators. The size of the pure_sklearn model
+trees and 100 estimators. The size of the scikit_endpoint model
 object is half of that for sklearn -- and the prediction
 latency for a single record is 1/10th that of sklearn.
 
@@ -31,8 +31,8 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import load_iris
 
-from pure_sklearn.utils import performance_comparison
-from pure_sklearn.map import convert_estimator
+from scikit_endpoint.utils import performance_comparison
+from scikit_endpoint.map import convert_estimator
 
 N_ESTIMATORS = 100
 MAX_DEPTH = None
