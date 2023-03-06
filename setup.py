@@ -19,7 +19,7 @@ def parse_description(description):
 
 
 DISTNAME = "scikit-endpoint"
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 DESCRIPTION = "Fast model predictions for ML Endpoints"
 with open("README.rst") as f:
     LONG_DESCRIPTION = parse_description(f.read())
