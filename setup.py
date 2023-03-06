@@ -18,7 +18,7 @@ def parse_description(description):
     )
 
 
-DISTNAME = "pure-endpoint"
+DISTNAME = "scikit-endpoint"
 VERSION = "0.0.1"
 DESCRIPTION = "Fast model predictions for ML Endpoints"
 with open("README.rst") as f:
@@ -36,7 +36,7 @@ CLASSIFIERS = [
 AUTHOR = "Miguel Otero Pedrido"
 AUTHOR_EMAIL = "miguel.otero.pedrido.1993@gmail.com"
 LICENSE = "Apache 2.0"
-PROJECT_URLS = {"Source Code": "https://github.com/MichaelisTrofficus/pure-endpoint"}
+PROJECT_URLS = {"Source Code": "https://github.com/MichaelisTrofficus/scikit-endpoint"}
 MIN_PYTHON_VERSION = "3.9"
 
 tests_require = [
