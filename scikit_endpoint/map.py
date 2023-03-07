@@ -37,7 +37,7 @@ MAPPING = {
     "CountVectorizer": "scikit_endpoint.feature_extraction.text.CountVectorizerPure",
     "TfidfTransformer": "scikit_endpoint.feature_extraction.text.TfidfTransformerPure",
     "HashingVectorizer": "scikit_endpoint.feature_extraction.text.HashingVectorizerPure",
-    "VarianceThresholdPure": "scikit_endpoint.feature_selection.VarianceThresholdPure",
+    "VarianceThreshold": "scikit_endpoint.feature_selection.VarianceThresholdPure",
 }
 
 
